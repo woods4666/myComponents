@@ -1,7 +1,11 @@
+/**
+ * Created by Administrator on 2018/12/29 0029.
+ * @description: 图片懒加载
+ */
 import React from 'react';
 import LazyImg from './LazyImg/LazyImg';
 class LazyImages extends React.Component {
-  imgList = {};
+  imgList = {}; //存放所有的图片实例
 
   componentDidMount() {
     this.lazyLoad();
@@ -14,24 +18,26 @@ class LazyImages extends React.Component {
 
   lazyLoad = () => {
     Object.values(this.imgList).forEach(img => {
+      // 如果图片实例未加载，则执行它的loadImg方法
       !img.loaded && img.loadImg();
     });
   };
 
   render() {
-    let {dataSource, defaultImg} = this.props;
-    let imgList = dataSource.map((itemData, index) => {
-      return <LazyImg {...{
-        key: index,
-        ref: node => this.imgList[`img${index}`] = node,
-        itemData,
-        defaultImg
-      }}/>
-    });
-
+    let {dataSource, defaultImg, percentage} = this.props;
     return (
       <div className="container">
-        {imgList}
+        {
+          dataSource.map((itemData, index) => {
+            return <LazyImg {...{
+              key: index,
+              ref: node => this.imgList[`img${index}`] = node, //把所有的图片实例存储到this.imgList中
+              itemData,
+              defaultImg,
+              percentage
+            }}/>
+          })
+        }
       </div>
     );
   }
@@ -52,7 +58,8 @@ data = [...new Array(40)].map((item, index) => {
 });
 
 LazyImages.defaultProps = {
-  dataSource: data,
-  defaultImg: 'https://misc.360buyimg.com/mtd/pc/index_2017/2.1.0/static/images/lazyload.gif'
+  dataSource: data,  //数据源
+  defaultImg: 'https://misc.360buyimg.com/mtd/pc/index_2017/2.1.0/static/images/lazyload.gif', //图片未加载是默认展示的小图标
+  percentage: .8  //当页面超出图片高度的百分之多少时加载
 };
 export default LazyImages;

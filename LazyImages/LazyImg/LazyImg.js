@@ -3,17 +3,15 @@
  */
 import React from 'react';
 class LazyImg extends React.Component {
-  loaded = false;
+  loaded = false;  //图片是否已经加载过了
   state = {
-    imgSrc: ''
+    imgSrc: ''  //图片的路径
   };
   loadImg = () => {
-    let wrap = this.refs.wrap,
-      wrapH = wrap.offsetHeight,
-      wrapT = wrap.offsetTop,
-      winH = document.documentElement.clientHeight,
-      scrollT = document.documentElement.scrollTop;
-    if (scrollT + winH >= wrapH + wrapT) {
+    let {offsetHeight, offsetTop} = this.refs.wrap,
+      {scrollTop, clientHeight} = document.documentElement,
+      {percentage} = this.props;
+    if (scrollTop + clientHeight >= offsetHeight * percentage + offsetTop) { //页面卷去的高度加上一屏幕的高度，大于 盒子的高度乘以百分比加上盒子边框距离页面顶部的高度时
       this.setSrc();
       this.loaded = true;
     }
