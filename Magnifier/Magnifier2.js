@@ -1,28 +1,11 @@
 ﻿/**
  * Created by Administrator on 2018/12/30 0030.
- *@description：放大镜
+ * @description:放大镜
  */
 import React from 'react';
 import './Magnifier2.less';
 import {Button} from 'antd';
-const imgList = [
-  {
-    smallImgSrc: require('./images/kakaxi.jpg'),
-    bigImgSrc: require('./images/kakaxi.jpg')
-  }, {
-    smallImgSrc: require('./images/peien.jpg'),
-    bigImgSrc: require('./images/peien.jpg')
-  }, {
-    smallImgSrc: require('./images/caomaohaizeituan2.jpg'),
-    bigImgSrc: require('./images/caomaohaizeituan2.jpg')
-  }, {
-    smallImgSrc: require('./images/caomaohaizeituan.jpg'),
-    bigImgSrc: require('./images/caomaohaizeituan.jpg')
-  }, {
-    smallImgSrc: require('./images/qiwuhai.jpg'),
-    bigImgSrc: require('./images/qiwuhai.jpg')
-  }
-];
+
 class Magnifier extends React.Component {
   constructor() {
     super();
@@ -39,6 +22,7 @@ class Magnifier extends React.Component {
 
   // 切换图片
   handleSwitch = () => {
+    let {imgList} = this.props;
     this.setState(preState => ({
       imgIndex: preState.imgIndex >= imgList.length - 1 ? 0 : preState.imgIndex + 1
     }));
@@ -104,7 +88,7 @@ class Magnifier extends React.Component {
 
   render() {
     //计算样式用到的变量
-    let {proportion, proportionSmallBox, magnifierWidth, isCircle, markOpacity} = this.props,
+    let {proportion, proportionSmallBox, magnifierWidth, isCircle, markOpacity, imgList} = this.props,
       {isEnterImgBox, markPosition, imgIndex, max} = this.state,
       {smallImgSrc, bigImgSrc} = imgList[imgIndex],
       display = isEnterImgBox ? 'block' : 'none',
@@ -181,11 +165,30 @@ class Magnifier extends React.Component {
     );
   }
 }
+const imgList = [
+  {
+    smallImgSrc: require('./images/kakaxi.jpg'),
+    bigImgSrc: require('./images/kakaxi.jpg')
+  }, {
+    smallImgSrc: require('./images/peien.jpg'),
+    bigImgSrc: require('./images/peien.jpg')
+  }, {
+    smallImgSrc: require('./images/caomaohaizeituan2.jpg'),
+    bigImgSrc: require('./images/caomaohaizeituan2.jpg')
+  }, {
+    smallImgSrc: require('./images/caomaohaizeituan.jpg'),
+    bigImgSrc: require('./images/caomaohaizeituan.jpg')
+  }, {
+    smallImgSrc: require('./images/qiwuhai.jpg'),
+    bigImgSrc: require('./images/qiwuhai.jpg')
+  }
+];
 Magnifier.defaultProps = {
+  imgList, //数据源(供切换图片)
   proportion: 1 / 3, //mark占小盒子宽度的比例
-  proportionSmallBox: 2 / 5,//小盒子占整行宽度的比例
-  magnifierWidth: 1000,//设置整行的宽度
-  isCircle: true,//mark和看到的大图片是否为圆形
-  markOpacity: .7//mark透明度
+  proportionSmallBox: 2 / 5, //小盒子占整行宽度的比例
+  magnifierWidth: 1000, //设置整行的宽度
+  isCircle: true, //mark和看到的大图片是否为圆形
+  markOpacity: .7 //mark透明度
 };
 export default Magnifier;
