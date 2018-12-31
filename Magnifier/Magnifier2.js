@@ -1,5 +1,6 @@
-/**
+﻿/**
  * Created by Administrator on 2018/12/30 0030.
+ * @description: 放大镜
  */
 import React from 'react';
 import './Magnifier2.less';
