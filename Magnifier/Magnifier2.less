@@ -1,0 +1,29 @@
+.Magnifier2 {
+  display: flex;
+  align-items: flex-start;
+  .smallBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    .imgBox {
+      position: relative;
+      .mark {
+        position: absolute;
+        background: red;
+        cursor: move;
+      }
+      img {
+        display: block;
+      }
+    }
+  }
+  .bigBox {
+    overflow: hidden;
+    position: relative;
+    img {
+      //display: block;
+      position: absolute;
+    }
+  }
+}
