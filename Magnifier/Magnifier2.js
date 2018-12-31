@@ -120,10 +120,10 @@ class Magnifier extends React.Component {
       bigBoxStyle = {width: bigBoxWidth, height: bigBoxWidth, display, ...radiusStyle};
 
     //bigImg样式
-    let bigImgBoxWidth = bigBoxWidth / proportion,
+    let bigImgSlideLength = bigBoxWidth / proportion,
       positionProportion = proportion / (1 / proportionSmallBox - 1),
-     bigImgStyle = {
-        [max]: bigImgBoxWidth,
+      bigImgStyle = {
+        [max]: bigImgSlideLength,
         left: -markPosition.left / positionProportion,
         top: -markPosition.top / positionProportion
       };
@@ -157,7 +157,7 @@ class Magnifier extends React.Component {
           }}>
             <img {...{
               src: bigImgSrc,
-              style: {...bigImgStyle}
+              style: bigImgStyle
             }} alt=""/>
           </div>
         </div>
