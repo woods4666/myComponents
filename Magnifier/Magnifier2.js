@@ -76,10 +76,11 @@ class Magnifier extends React.Component {
   };
   //计算图片的偏移量（offsetLeft/offsetTop）
   computedOffset = (node, offsetName) => {
+    let name = offsetName.split('offset')[1]; //'Left' 或者 'Top'
     let offset = 0,
       parent = node.offsetParent;
     while (parent) {
-      offset = offset + node[offsetName];
+      offset = offset + node[offsetName] + parent['client' + name];
       node = parent;
       parent = node.offsetParent;
     }
@@ -121,7 +122,7 @@ class Magnifier extends React.Component {
 
     //bigImg样式
     let bigImgSlideLength = bigBoxWidth / proportion,
-      positionProportion = proportion / (1 / proportionSmallBox - 1),
+      positionProportion = proportion * (proportionSmallBox / (1 - proportionSmallBox)),
       bigImgStyle = {
         [max]: bigImgSlideLength,
         left: -markPosition.left / positionProportion,
